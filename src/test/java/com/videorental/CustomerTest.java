@@ -12,9 +12,21 @@ public class CustomerTest {
 
     // 아래 테스트에서 사용 될 rental 생성 코드
     private static Rental createRentalFor(int priceCode, int daysRented) {
-        Movie movie = new Movie(TITLE, priceCode);
-        Rental rental = new Rental(movie, daysRented);
-        return rental;
+        Movie movie = getMovie(priceCode);
+        return new Rental(movie, daysRented);
+    }
+
+    private static Movie getMovie(int priceCode) {
+        switch (priceCode){
+            case Movie.REGULAR:
+                return new RegularMovie(TITLE);
+            case Movie.NEW_RELEASE:
+                return new NewReleaseMovie(TITLE);
+            case Movie.CHILDRENS:
+                return new ChildrenMovie(TITLE);
+            default :
+                return null;
+        }
     }
 
     @Test
@@ -130,7 +142,7 @@ public class CustomerTest {
     @DisplayName("[10] 가격이 변동된 경우")
     public void changeMoviePrice() {
         // given
-        Movie movie = new Movie(TITLE, 10);
+        Movie movie = new NewReleaseMovie(TITLE);
 
         // when
         movie.setPriceCode(20);
