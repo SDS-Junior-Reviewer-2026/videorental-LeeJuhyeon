@@ -126,4 +126,16 @@ public class CustomerTest {
                 "You earned 4 frequent renter pointers", customer.statement());
     }
 
+    @Test
+    @DisplayName("[10] 가격이 변동된 경우")
+    public void changeMoviePrice() {
+        // given
+        Movie movie = new Movie(TITLE, 10);
+
+        // when
+        movie.setPriceCode(20);
+
+        // then
+        Assertions.assertEquals(20, movie.getPriceCode());
+    }
 }
